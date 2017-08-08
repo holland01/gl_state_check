@@ -1,9 +1,10 @@
 #pragma once
 
+// your gl header include(s) should go here
+
 #include <sstream>
 #include <string>
 #include <iostream>
-// your gl header should go here
 
 #define GLSTATECHECK_UNDEFINED -1
 
@@ -13,23 +14,15 @@
 #define GLSTATECHECK_1I( queryEnum, defaultValue ) 																		\
 	{																													\
 		GLint ret;																										\
-		GL_CHECK( glGetIntegerv( ( queryEnum ), &ret ) );																\
+		glGetIntegerv( ( queryEnum ), &ret );																\
 		stateCheckBuffer << "\t"  << GLSTATECHECK_VALUE( #queryEnum, ret ) 												\
 						 << ",  " << GLSTATECHECK_VALUE( "DEFAULT = " #defaultValue, defaultValue ) << "\n";			\
-	}
-
-#define GLSTATECHECK_NAME_1I( queryEnum, defaultName, defaultValue ) 													\
-	{																													\
-		GLint ret;																										\
-		GL_CHECK( glGetIntegerv( ( queryEnum ), &ret ) );																\
-		stateCheckBuffer << "\t"  << GLSTATECHECK_VALUE( #queryEnum, ret ) 												\
-						 << ",  " << GLSTATECHECK_VALUE( "DEFAULT = " defaultName, defaultValue ) << "\n";				\
 	}
 
 #define GLSTATECHECK_1B( queryEnum, defaultValue ) 																		\
 	{																													\
 		GLboolean ret;																									\
-		GL_CHECK( glGetBooleanv( ( queryEnum ), &ret ) );																\
+		glGetBooleanv( ( queryEnum ), &ret );																\
 		stateCheckBuffer 	<< "\t" << GLSTATECHECK_VALUE( #queryEnum, ret ) 											\
 							<< ", " << GLSTATECHECK_VALUE( "DEFAULT = " #defaultValue, defaultValue )  					\
 						    << "\n";																					\
@@ -38,17 +31,9 @@
 #define GLSTATECHECK_1F( queryEnum, defaultValue ) 																		\
 	{																													\
 		GLfloat ret;																									\
-		GL_CHECK( glGetFloatv( ( queryEnum ), &ret ) );																	\
+		glGetFloatv( ( queryEnum ), &ret );																	\
 		stateCheckBuffer << "\t"  << GLSTATECHECK_VALUE( #queryEnum, ret ) 												\
 						 << ",  " << GLSTATECHECK_VALUE( "DEFAULT = " #defaultValue, defaultValue ) << "\n";			\
-	}
-
-#define GLSTATECHECK_NAME_1F( queryEnum, defaultName, defaultValue ) 													\
-	{																													\
-		GLfloat ret;																									\
-		GL_CHECK( glGetFloatv( ( queryEnum ), &ret ) );																	\
-		stateCheckBuffer << "\t"  << GLSTATECHECK_VALUE( #queryEnum, ret ) 												\
-						 << ",  " << GLSTATECHECK_VALUE( "DEFAULT = " #defaultName, defaultValue ) << "\n";				\
 	}
 
 
@@ -58,7 +43,7 @@
 #define GLSTATECHECK_2F( queryEnum, default0, default1 ) 																\
 	{																													\
 		GLfloat ret[ 2 ];																								\
-		GL_CHECK( glGetFloatv( ( queryEnum ), &ret[ 0 ] ) );															\
+		glGetFloatv( ( queryEnum ), &ret[ 0 ] );															\
 		stateCheckBuffer 	<< "\t" << GLSTATECHECK_VALUE_2( #queryEnum, ret[ 0 ], ret[ 1 ] ) 							\
 							<< ", " << GLSTATECHECK_VALUE_2( "DEFAULT", default0, default1 ) 							\
 							<< "\n";																					\
@@ -67,7 +52,7 @@
 #define GLSTATECHECK_2I( queryEnum, default0, default1 ) 																\
 	{																													\
 		GLint ret[ 2 ];																									\
-		GL_CHECK( glGetIntegerv( ( queryEnum ), &ret[ 0 ] ) );															\
+		glGetIntegerv( ( queryEnum ), &ret[ 0 ] );															\
 		stateCheckBuffer 	<< "\t" << GLSTATECHECK_VALUE_2( #queryEnum, ret[ 0 ], ret[ 1 ] ) 							\
 							<< ", " << GLSTATECHECK_VALUE_2( "DEFAULT", default0, default1 ) 							\
 							<< "\n";																					\
@@ -82,7 +67,7 @@
 #define GLSTATECHECK_4F( queryEnum, default0, default1, default2, default3 ) 											\
 	{																													\
 		GLfloat ret[ 4 ];																								\
-		GL_CHECK( glGetFloatv( ( queryEnum ), &ret[ 0 ] ) );															\
+		glGetFloatv( ( queryEnum ), &ret[ 0 ] );															\
 		stateCheckBuffer 	<< "\t" << GLSTATECHECK_VALUE_4( #queryEnum, ret[ 0 ], ret[ 1 ], ret[ 2 ], ret[ 3 ] ) 		\
 							<< ",\n\t\t" << GLSTATECHECK_VALUE_4( "DEFAULT", default0, default1, default2, default3 ) 	\
 							<< "\n";																					\
@@ -91,7 +76,7 @@
 #define GLSTATECHECK_4I( queryEnum, default0, default1, default2, default3 ) 											\
 	{																													\
 		GLint ret[ 4 ];																									\
-		GL_CHECK( glGetIntegerv( ( queryEnum ), &ret[ 0 ] ) );															\
+		glGetIntegerv( ( queryEnum ), &ret[ 0 ] );															\
 		stateCheckBuffer 	<< "\t" << GLSTATECHECK_VALUE_4( #queryEnum, ret[ 0 ], ret[ 1 ], ret[ 2 ], ret[ 3 ] ) 		\
 							<< ",\n\t\t" << GLSTATECHECK_VALUE_4( "DEFAULT", default0, default1, default2, default3 ) 	\
 							<< "\n";																					\
@@ -100,7 +85,7 @@
 #define GLSTATECHECK_SECTION( name ) \
 	stateCheckBuffer << "\n\n[\t" name "\t]" << "\n\n";
 
-void PrintAllTheState( void )
+void gl_state_print( void )
 {
 	std::stringstream stateCheckBuffer;
 
@@ -249,7 +234,7 @@ void PrintAllTheState( void )
 
 	GLSTATECHECK_1I( GL_UNPACK_ALIGNMENT, 4 )
 
-    GLSTATECHECK_SECTION( "V" )
+        GLSTATECHECK_SECTION( "V" )
 
 	GLSTATECHECK_4I( GL_VIEWPORT, 0, 0, GLSTATECHECK_UNDEFINED, GLSTATECHECK_UNDEFINED )
 
